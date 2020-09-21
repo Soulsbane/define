@@ -1,5 +1,7 @@
 package main
 
+import "github.com/alexflint/go-arg"
+
 type word struct {
 	Meanings []struct {
 		Definitions []struct {
@@ -20,5 +22,8 @@ type word struct {
 // https://api.dictionaryapi.dev/api/v2/entries/en/hello
 // https://api.dictionaryapi.dev/api/v2/entries/ja/緑
 func main() {
+	var args struct {
+	}
 
+	arg.MustParse(&args)
 }
