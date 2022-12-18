@@ -18,7 +18,7 @@ func main() {
 		if err != nil {
 			fmt.Println(err)
 		} else {
-			fmt.Println(definition)
+			fmt.Println(definition.Definition)
 		}
 	}
 }
