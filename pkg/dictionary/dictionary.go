@@ -11,6 +11,8 @@ import (
 // https://api.dictionaryapi.dev/api/v2/entries/en/hello
 // https://api.dictionaryapi.dev/api/v2/entries/ja/緑
 
+const API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+
 type DefinitionsObject struct {
 	Definition string   `json:"definition"`
 	Example    string   `json:"example"`
@@ -32,7 +34,7 @@ type DictionaryObject struct {
 
 func GetDefinition(wordToFind string) (*DefinitionsObject, error) {
 	var dictionaryObject []DictionaryObject
-	resp, err := grequests.Get("https://api.dictionaryapi.dev/api/v2/entries/en/"+wordToFind, nil)
+	resp, err := grequests.Get(API_URL+wordToFind, nil)
 
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch word from dictionary API: %s", err)
