@@ -7,7 +7,8 @@ import (
 )
 
 type ProgramArgs struct {
-	Word string `arg:"positional, required"`
+	Word    string `arg:"positional, required"`
+	ListAll bool   `arg:"-a, --list-all" default:"false" help:"List all definitions for a word"`
 }
 
 func (args ProgramArgs) Description() string {

@@ -29,6 +29,6 @@ func main() {
 	arg.MustParse(&args)
 
 	if args.Word != "" {
-		ListDefinitions("cat", false)
+		ListDefinitions("cat", args.ListAll)
 	}
 }
