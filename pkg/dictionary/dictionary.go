@@ -32,7 +32,7 @@ type DictionaryObject struct {
 	Word string `json:"word"`
 }
 
-func GetDefinition(wordToFind string) (*DefinitionsObject, error) {
+func GetDefinition(wordToFind string, all bool) (*[]DefinitionsObject, error) {
 	var dictionaryObject []DictionaryObject
 	resp, err := grequests.Get(API_URL+wordToFind, nil)
 
@@ -45,6 +45,6 @@ func GetDefinition(wordToFind string) (*DefinitionsObject, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to find a definition for: %s", wordToFind)
 	} else {
-		return &dictionaryObject[0].Meanings[0].Definitions[0], nil
+		return &dictionaryObject[0].Meanings[0].Definitions, nil
 	}
 }
