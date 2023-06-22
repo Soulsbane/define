@@ -3,8 +3,7 @@ package dictionary
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/levigross/grequests"
+	"github.com/imroc/req/v3"
 )
 
 // https://api.dictionaryapi.dev/api/v2/entries/<language_code>/<word>
@@ -34,7 +33,9 @@ type DictionaryObject struct {
 
 func GetDefinition(wordToFind string, all bool) (*[]DefinitionsObject, error) {
 	var dictionaryObject []DictionaryObject
-	resp, err := grequests.Get(API_URL+wordToFind, nil)
+	client := req.C()
+
+	resp, err := client.R().Get(API_URL + wordToFind)
 
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch word from dictionary API: %s", err)
