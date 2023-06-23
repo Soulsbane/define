@@ -10,7 +10,7 @@ import (
 )
 
 func ListDefinitions(word string, listAll bool) {
-	definitions, err := dictionary.GetDefinition(word, false)
+	definitions, err := dictionary.GetDefinition(word)
 
 	if err != nil {
 		fmt.Println(err)

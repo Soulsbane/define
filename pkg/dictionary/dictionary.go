@@ -30,7 +30,7 @@ type DictionaryObject struct {
 	Word string `json:"word"`
 }
 
-func GetDefinition(wordToFind string, all bool) (*[]DefinitionsObject, error) {
+func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
 	var dictionaryObject []DictionaryObject
 	client := req.C()
 
