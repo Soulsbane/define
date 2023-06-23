@@ -1,7 +1,6 @@
 package dictionary
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/imroc/req/v3"
 )
@@ -35,13 +34,7 @@ func GetDefinition(wordToFind string, all bool) (*[]DefinitionsObject, error) {
 	var dictionaryObject []DictionaryObject
 	client := req.C()
 
-	resp, err := client.R().Get(API_URL + wordToFind)
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to fetch word from dictionary API: %s", err)
-	}
-
-	err = json.Unmarshal(resp.Bytes(), &dictionaryObject)
+	_, err := client.R().SetSuccessResult(&dictionaryObject).Get(API_URL + wordToFind)
 
 	if err != nil {
 		return nil, fmt.Errorf("failed to find a definition for: %s", wordToFind)
