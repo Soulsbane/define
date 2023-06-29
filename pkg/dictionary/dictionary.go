@@ -10,6 +10,7 @@ import (
 // https://api.dictionaryapi.dev/api/v2/entries/ja/緑
 
 const API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+const errorNoDefinition = "failed to find a definition for %s"
 
 type DefinitionsObject struct {
 	Definition string   `json:"definition"`
@@ -37,10 +38,10 @@ func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
 	_, err := client.R().SetSuccessResult(&dictionaryObject).Get(API_URL + wordToFind)
 
 	if err != nil {
-		return nil, fmt.Errorf("failed to find a definition for %s", wordToFind)
+		return nil, fmt.Errorf(errorNoDefinition, wordToFind)
 	} else {
 		if len(dictionaryObject) == 0 {
-			return nil, fmt.Errorf("failed to find a definition for %s", wordToFind)
+			return nil, fmt.Errorf(errorNoDefinition, wordToFind)
 		} else {
 			return &dictionaryObject[0].Meanings[0].Definitions, nil
 		}
