@@ -37,8 +37,12 @@ func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
 	_, err := client.R().SetSuccessResult(&dictionaryObject).Get(API_URL + wordToFind)
 
 	if err != nil {
-		return nil, fmt.Errorf("failed to find a definition for: %s", wordToFind)
+		return nil, fmt.Errorf("failed to find a definition for %s", wordToFind)
 	} else {
-		return &dictionaryObject[0].Meanings[0].Definitions, nil
+		if len(dictionaryObject) == 0 {
+			return nil, fmt.Errorf("failed to find a definition for %s", wordToFind)
+		} else {
+			return &dictionaryObject[0].Meanings[0].Definitions, nil
+		}
 	}
 }
