@@ -13,7 +13,7 @@ func ListDefinitions(word string, listAll bool) {
 	definitions, err := dictionary.GetDefinition(word)
 
 	if err != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println(err)
 	} else {
 		if listAll {
 			outputTable := table.NewWriter()

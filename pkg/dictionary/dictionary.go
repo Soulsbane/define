@@ -10,7 +10,7 @@ import (
 // https://api.dictionaryapi.dev/api/v2/entries/ja/緑
 
 const API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
-const errorNoDefinition = "failed to find a definition for %s"
+const errorNoDefinition = "Failed to find a definition for %s"
 
 type DefinitionsObject struct {
 	Definition string   `json:"definition"`
