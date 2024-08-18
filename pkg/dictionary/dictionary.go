@@ -18,8 +18,8 @@ type DefinitionsObject struct {
 	Synonyms   []string `json:"synonyms"`
 }
 
-// DictionaryObject Structure containing the values fetched from dictionaryapi.dev
-type DictionaryObject struct {
+// DefinitionResult Structure containing the values fetched from dictionaryapi.dev
+type DefinitionResult struct {
 	Meanings []struct {
 		Definitions  []DefinitionsObject `json:"definitions"`
 		PartOfSpeech string              `json:"partOfSpeech"`
@@ -32,7 +32,7 @@ type DictionaryObject struct {
 }
 
 func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
-	var dictionaryObject []DictionaryObject
+	var dictionaryObject []DefinitionResult
 	client := req.C()
 
 	_, err := client.R().SetSuccessResult(&dictionaryObject).Get(API_URL + wordToFind)
