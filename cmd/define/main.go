@@ -23,17 +23,18 @@ func getOutputTable() table.Writer {
 }
 
 func ListDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool) {
-	if listAll {
-		outputTable := getOutputTable()
+	outputTable := getOutputTable()
 
+	if listAll {
 		for _, definitionObject := range *definitions {
 			outputTable.AppendRow(table.Row{definitionObject.Definition})
 		}
 
-		outputTable.Render()
 	} else {
-		fmt.Println((*definitions)[0].Definition)
+		outputTable.AppendRow(table.Row{(*definitions)[0].Definition})
 	}
+
+	outputTable.Render()
 }
 
 func main() {
