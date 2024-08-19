@@ -46,7 +46,7 @@ func main() {
 		definitions, err := dictionary.GetDefinition(args.Word)
 
 		if errors.As(err, &dictionary.ErrorNoDefinition) {
-			fmt.Println("No definition found")
+			fmt.Println("No definition found for", args.Word)
 		} else {
 			ListDefinitions(definitions, args.ListAll)
 		}
