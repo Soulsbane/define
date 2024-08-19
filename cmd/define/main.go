@@ -10,19 +10,26 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 )
 
+func getOutputTable() table.Writer {
+
+	outputTable := table.NewWriter()
+
+	outputTable.SetOutputMirror(os.Stdout)
+	outputTable.AppendHeader(table.Row{"Definition"})
+	outputTable.SetStyle(table.StyleRounded)
+	outputTable.Style().Options.SeparateRows = true
+
+	return outputTable
+}
+
 func ListDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool) {
 	if listAll {
-		outputTable := table.NewWriter()
-
-		outputTable.SetOutputMirror(os.Stdout)
-		outputTable.AppendHeader(table.Row{"Definition"})
+		outputTable := getOutputTable()
 
 		for _, definitionObject := range *definitions {
 			outputTable.AppendRow(table.Row{definitionObject.Definition})
 		}
 
-		outputTable.SetStyle(table.StyleRounded)
-		outputTable.Style().Options.SeparateRows = true
 		outputTable.Render()
 	} else {
 		fmt.Println((*definitions)[0].Definition)
