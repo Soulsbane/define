@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -9,28 +10,22 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 )
 
-func ListDefinitions(word string, listAll bool) {
-	definitions, err := dictionary.GetDefinition(word)
+func ListDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool) {
+	if listAll {
+		outputTable := table.NewWriter()
 
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		if listAll {
-			outputTable := table.NewWriter()
+		outputTable.SetOutputMirror(os.Stdout)
+		outputTable.AppendHeader(table.Row{"Definition"})
 
-			outputTable.SetOutputMirror(os.Stdout)
-			outputTable.AppendHeader(table.Row{"Definition"})
-
-			for _, definitionObject := range *definitions {
-				outputTable.AppendRow(table.Row{definitionObject.Definition})
-			}
-
-			outputTable.SetStyle(table.StyleRounded)
-			outputTable.Style().Options.SeparateRows = true
-			outputTable.Render()
-		} else {
-			fmt.Println((*definitions)[0].Definition)
+		for _, definitionObject := range *definitions {
+			outputTable.AppendRow(table.Row{definitionObject.Definition})
 		}
+
+		outputTable.SetStyle(table.StyleRounded)
+		outputTable.Style().Options.SeparateRows = true
+		outputTable.Render()
+	} else {
+		fmt.Println((*definitions)[0].Definition)
 	}
 }
 
@@ -40,6 +35,12 @@ func main() {
 	arg.MustParse(&args)
 
 	if args.Word != "" {
-		ListDefinitions(args.Word, args.ListAll)
+		definitions, err := dictionary.GetDefinition(args.Word)
+
+		if errors.As(err, &dictionary.ErrorNoDefinition) {
+			fmt.Println("No definition found")
+		} else {
+			ListDefinitions(definitions, args.ListAll)
+		}
 	}
 }

@@ -1,7 +1,7 @@
 package dictionary
 
 import (
-	"fmt"
+	"errors"
 	"github.com/imroc/req/v3"
 )
 
@@ -10,7 +10,8 @@ import (
 // https://api.dictionaryapi.dev/api/v2/entries/ja/緑
 
 const dictionaryURL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
-const errorNoDefinition = "Failed to find a definition for %s"
+
+var ErrorNoDefinition = errors.New("failed to find a definition")
 
 type DefinitionsObject struct {
 	Definition string   `json:"definition"`
@@ -38,10 +39,10 @@ func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
 	_, err := client.R().SetSuccessResult(&dictionaryObject).Get(dictionaryURL + wordToFind)
 
 	if err != nil {
-		return nil, fmt.Errorf(errorNoDefinition, wordToFind)
+		return nil, ErrorNoDefinition
 	} else {
 		if len(dictionaryObject) == 0 {
-			return nil, fmt.Errorf(errorNoDefinition, wordToFind)
+			return nil, ErrorNoDefinition
 		} else {
 			return &dictionaryObject[0].Meanings[0].Definitions, nil
 		}
