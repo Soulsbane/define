@@ -9,7 +9,7 @@ import (
 // https://api.dictionaryapi.dev/api/v2/entries/en/hello
 // https://api.dictionaryapi.dev/api/v2/entries/ja/緑
 
-const API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+const dictionaryURL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 const errorNoDefinition = "Failed to find a definition for %s"
 
 type DefinitionsObject struct {
@@ -35,7 +35,7 @@ func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
 	var dictionaryObject []DefinitionResult
 	client := req.C()
 
-	_, err := client.R().SetSuccessResult(&dictionaryObject).Get(API_URL + wordToFind)
+	_, err := client.R().SetSuccessResult(&dictionaryObject).Get(dictionaryURL + wordToFind)
 
 	if err != nil {
 		return nil, fmt.Errorf(errorNoDefinition, wordToFind)
