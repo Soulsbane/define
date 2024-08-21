@@ -32,7 +32,7 @@ func handleCopyToClipboard(definition string) {
 	}
 }
 
-func ListDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool, copyToClipboard bool) {
+func listDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool, copyToClipboard bool) {
 	outputTable := getOutputTable()
 
 	if listAll {
@@ -61,7 +61,7 @@ func main() {
 		if errors.As(err, &dictionary.ErrorNoDefinition) {
 			fmt.Println("No definition found for", args.Word)
 		} else {
-			ListDefinitions(definitions, args.ListAll, args.Copy)
+			listDefinitions(definitions, args.ListAll, args.Copy)
 		}
 	}
 }
