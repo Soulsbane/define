@@ -9,20 +9,20 @@ require (
 	github.com/carlmjohnson/versioninfo v0.22.5
 	github.com/imroc/req/v3 v3.43.7
 	github.com/jedib0t/go-pretty/v6 v6.5.9
-	github.com/tiagomelo/go-clipboard v0.1.0
+	github.com/tiagomelo/go-clipboard v0.1.1
 )
 
 require (
 	github.com/alexflint/go-scalar v1.2.0 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
-	github.com/cloudflare/circl v1.3.9 // indirect
+	github.com/cloudflare/circl v1.4.0 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/pprof v0.0.0-20240727154555-813a5fbdbec8 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/klauspost/compress v1.17.9 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
-	github.com/onsi/ginkgo/v2 v2.20.0 // indirect
+	github.com/onsi/ginkgo/v2 v2.20.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/quic-go/qpack v0.4.0 // indirect
 	github.com/quic-go/quic-go v0.46.0 // indirect
