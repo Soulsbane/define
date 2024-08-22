@@ -42,6 +42,7 @@ func listDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool, 
 
 	} else {
 		outputTable.AppendRow(table.Row{(*definitions)[0].Definition})
+
 		if copyToClipboard {
 			handleCopyToClipboard((*definitions)[0].Definition)
 		}
