@@ -8,13 +8,18 @@ import (
 	"github.com/Soulsbane/define/pkg/dictionary"
 	"github.com/alexflint/go-arg"
 	"github.com/jedib0t/go-pretty/v6/table"
+	"github.com/jedib0t/go-pretty/v6/text"
 
 	"github.com/tiagomelo/go-clipboard/clipboard"
 )
 
-func getOutputTable() table.Writer {
+func getOutputTable(maxWidth int) table.Writer {
 
 	outputTable := table.NewWriter()
+
+	outputTable.SetColumnConfigs([]table.ColumnConfig{
+		{Number: 1, Align: text.AlignLeft, WidthMax: maxWidth},
+	})
 
 	outputTable.SetOutputMirror(os.Stdout)
 	outputTable.AppendHeader(table.Row{"Definition"})
@@ -32,8 +37,8 @@ func handleCopyToClipboard(definition string) {
 	}
 }
 
-func listDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool, copyToClipboard bool) {
-	outputTable := getOutputTable()
+func listDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool, copyToClipboard bool, maxWidth int) {
+	outputTable := getOutputTable(maxWidth)
 
 	if listAll {
 		for _, definitionObject := range *definitions {
@@ -62,7 +67,7 @@ func main() {
 		if errors.As(err, &dictionary.ErrorNoDefinition) {
 			fmt.Println("No definition found for", args.Word)
 		} else {
-			listDefinitions(definitions, args.ListAll, args.Copy)
+			listDefinitions(definitions, args.ListAll, args.Copy, args.MaxWidth)
 		}
 	}
 }
