@@ -1,8 +1,9 @@
 package dictionary
 
 import (
+	"encoding/json"
 	"errors"
-	"github.com/imroc/req/v3"
+	"net/http"
 )
 
 // https://api.dictionaryapi.dev/api/v2/entries/<language_code>/<word>
@@ -12,6 +13,9 @@ import (
 const dictionaryURL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 
 var ErrorNoDefinition = errors.New("failed to find a definition")
+var ErrorDownloadFailed = errors.New("failed to download definition")
+
+// DefinitionsObject Structure containing the definition, example and synonyms
 
 type DefinitionsObject struct {
 	Definition string   `json:"definition"`
@@ -33,18 +37,25 @@ type DefinitionResult struct {
 }
 
 func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
-	var dictionaryObject []DefinitionResult
-	client := req.C()
+	var result []DefinitionResult
 
-	_, err := client.R().SetSuccessResult(&dictionaryObject).Get(dictionaryURL + wordToFind)
+	resp, err := http.Get(dictionaryURL + wordToFind)
+
+	if err != nil {
+		return nil, ErrorDownloadFailed
+	}
+
+	defer resp.Body.Close()
+
+	err = json.NewDecoder(resp.Body).Decode(&result)
 
 	if err != nil {
 		return nil, ErrorNoDefinition
+	}
+
+	if len(result) == 0 {
+		return nil, ErrorNoDefinition
 	} else {
-		if len(dictionaryObject) == 0 {
-			return nil, ErrorNoDefinition
-		} else {
-			return &dictionaryObject[0].Meanings[0].Definitions, nil
-		}
+		return &result[0].Meanings[0].Definitions, nil
 	}
 }
