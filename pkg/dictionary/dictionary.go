@@ -12,8 +12,8 @@ import (
 
 const dictionaryURL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 
-var ErrorNoDefinition = errors.New("failed to find a definition")
-var ErrorDownloadFailed = errors.New("failed to download definition")
+var ErrNoDefinition = errors.New("failed to find a definition")
+var ErrDownloadFailed = errors.New("failed to download definition")
 
 // DefinitionsObject Structure containing the definition, example and synonyms
 
@@ -42,7 +42,7 @@ func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
 	resp, err := http.Get(dictionaryURL + wordToFind)
 
 	if err != nil {
-		return nil, ErrorDownloadFailed
+		return nil, ErrDownloadFailed
 	}
 
 	defer resp.Body.Close()
@@ -50,11 +50,11 @@ func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
 	err = json.NewDecoder(resp.Body).Decode(&result)
 
 	if err != nil {
-		return nil, ErrorNoDefinition
+		return nil, ErrNoDefinition
 	}
 
 	if len(result) == 0 {
-		return nil, ErrorNoDefinition
+		return nil, ErrNoDefinition
 	} else {
 		return &result[0].Meanings[0].Definitions, nil
 	}

@@ -64,7 +64,7 @@ func main() {
 	if args.Word != "" {
 		definitions, err := dictionary.GetDefinition(args.Word)
 
-		if errors.Is(err, dictionary.ErrorNoDefinition) {
+		if errors.Is(err, dictionary.ErrNoDefinition) {
 			fmt.Println("No definition found for", args.Word)
 		} else {
 			listDefinitions(definitions, args.ListAll, args.Copy, args.MaxWidth)
