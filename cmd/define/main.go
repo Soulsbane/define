@@ -37,19 +37,19 @@ func handleCopyToClipboard(definition string) {
 	}
 }
 
-func listDefinitions(definitions *[]dictionary.DefinitionsObject, listAll bool, copyToClipboard bool, maxWidth int) {
+func listDefinitions(definitions []dictionary.DefinitionsObject, listAll bool, copyToClipboard bool, maxWidth int) {
 	outputTable := getOutputTable(maxWidth)
 
 	if listAll {
-		for _, definitionObject := range *definitions {
+		for _, definitionObject := range definitions {
 			outputTable.AppendRow(table.Row{definitionObject.Definition})
 		}
 
 	} else {
-		outputTable.AppendRow(table.Row{(*definitions)[0].Definition})
+		outputTable.AppendRow(table.Row{(definitions)[0].Definition})
 
 		if copyToClipboard {
-			handleCopyToClipboard((*definitions)[0].Definition)
+			handleCopyToClipboard((definitions)[0].Definition)
 		}
 	}
 

@@ -36,7 +36,7 @@ type DefinitionResult struct {
 	Word string `json:"word"`
 }
 
-func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
+func GetDefinition(wordToFind string) ([]DefinitionsObject, error) {
 	var result []DefinitionResult
 
 	resp, err := http.Get(dictionaryURL + wordToFind)
@@ -56,6 +56,6 @@ func GetDefinition(wordToFind string) (*[]DefinitionsObject, error) {
 	if len(result) == 0 {
 		return nil, ErrNoDefinition
 	} else {
-		return &result[0].Meanings[0].Definitions, nil
+		return result[0].Meanings[0].Definitions, nil
 	}
 }
