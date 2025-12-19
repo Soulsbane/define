@@ -12,8 +12,8 @@ import (
 
 const dictionaryURL = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 
-var ErrNoDefinition = errors.New("failed to find a definition")
-var ErrDownloadFailed = errors.New("failed to download definition")
+var ErrNoDefinition = errors.New("failed to find a definition for that word")
+var ErrDownloadFailed = errors.New("failed to download definitions file")
 
 // DefinitionsObject Structure containing the definition, example and synonyms
 
