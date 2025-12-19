@@ -17,17 +17,17 @@ var ErrDownloadFailed = errors.New("failed to download definitions file")
 
 // DefinitionsObject Structure containing the definition, example and synonyms
 
-type DefinitionsObject struct {
+type DefinitionResult struct {
 	Definition string   `json:"definition"`
 	Example    string   `json:"example"`
 	Synonyms   []string `json:"synonyms"`
 }
 
-// DefinitionResult Structure containing the values fetched from dictionaryapi.dev
-type DefinitionResult struct {
+// DefinitionResults Structure containing the values fetched from dictionaryapi.dev
+type DefinitionResults struct {
 	Meanings []struct {
-		Definitions  []DefinitionsObject `json:"definitions"`
-		PartOfSpeech string              `json:"partOfSpeech"`
+		Definitions  []DefinitionResult `json:"definitions"`
+		PartOfSpeech string             `json:"partOfSpeech"`
 	} `json:"meanings"`
 	Phonetics []struct {
 		Audio string `json:"audio"`
@@ -36,8 +36,8 @@ type DefinitionResult struct {
 	Word string `json:"word"`
 }
 
-func GetDefinition(wordToFind string) ([]DefinitionsObject, error) {
-	var result []DefinitionResult
+func GetDefinition(wordToFind string) ([]DefinitionResult, error) {
+	var result []DefinitionResults
 
 	resp, err := http.Get(dictionaryURL + wordToFind)
 

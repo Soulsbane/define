@@ -37,7 +37,7 @@ func handleCopyToClipboard(definition string) {
 	}
 }
 
-func listDefinitions(definitions []dictionary.DefinitionsObject, listAll bool, copyToClipboard bool, maxWidth int) {
+func listDefinitions(definitions []dictionary.DefinitionResult, listAll bool, copyToClipboard bool, maxWidth int) {
 	outputTable := getOutputTable(maxWidth)
 
 	if listAll {
